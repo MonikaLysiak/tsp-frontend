@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>Travelling Salesman Problem Solver</h2>
+  
+    <button (click)="solveTsp()" class="btn btn-primary" [disabled]="loading">
+      {{ loading ? 'Solving...' : 'Solve TSP' }}
+    </button>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="response" class="mt-3">
+      <h4>Best Route:</h4>
+      <p>{{ response.bestRoute.join(' → ') }}</p>
+      <h4>Total Distance:</h4>
+      <p>{{ response.totalDistance }} km</p>
+    </div>
+  </div>
+  
