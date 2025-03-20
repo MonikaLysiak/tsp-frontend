@@ -8,7 +8,7 @@ import { TspService, TspRequest, TspResponse } from '../services/tsp.service';
 })
 export class TspSolverComponent {
   request: TspRequest = {
-    filePath: 'C:\\Users\\k1212\\Documents\\GeneticTSP\\data\\Dane_TSP_48.csv',
+    filePath: 'C:\\Users\\k1212\\Documents\\GeneticTSP\\tsp-solver\\data\\Dane_TSP_48.csv',
     populationSize: 80000,
     mutationRate: 0.05,
     generations: 100,
@@ -37,6 +37,14 @@ export class TspSolverComponent {
       error: (err) => {
         this.errorMessage = 'Failed to solve TSP!';
         this.loading = false;
+      }
+    });
+  }
+
+  stopTsp() {
+    this.tspService.stopTsp().subscribe({
+      error: (err) => {
+        this.errorMessage = 'Failed to stop TSP!';
       }
     });
   }

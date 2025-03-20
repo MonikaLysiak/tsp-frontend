@@ -8,12 +8,16 @@ import { TspResponse } from '../models/tsp-response';
   providedIn: 'root'
 })
 export class TspService {
-  private apiUrl = 'http://localhost:5001/api/tsp/solve'; // Backend URL
+  private apiUrl = 'http://localhost:5001/api/tsp';
 
   constructor(private http: HttpClient) {}
 
   solveTsp(request: TspRequest): Observable<TspResponse> {
-    return this.http.post<TspResponse>(this.apiUrl, request);
+    return this.http.post<TspResponse>(this.apiUrl + '/solve', request);
+  }
+
+  stopTsp(): Observable<void> {
+    return this.http.post<void>(this.apiUrl + '/stop', {});
   }
 }
 export { TspRequest, TspResponse };
