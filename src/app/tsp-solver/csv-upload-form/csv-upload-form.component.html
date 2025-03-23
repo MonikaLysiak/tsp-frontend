@@ -1,0 +1,20 @@
+<div 
+    class="upload-container" 
+    (dragover)="onDragOver($event)" 
+    (dragleave)="onDragLeave($event)" 
+    (drop)="onDrop($event)"
+    [class.dragging]="isDragging"
+>
+    <label class="file-label">
+        <input type="file" (change)="onFileSelected($event)" accept=".csv" hidden />
+        <span class="file-button">Choose CSV File or Drag & Drop Here</span>
+    </label>
+
+    <p *ngIf="validationMessage" [class.success]="isFileValid" [class.error]="!isFileValid">
+        {{ validationMessage }}
+    </p>
+
+    <button class="submit-btn" (click)="fileValidated.emit(selectedFile)" [disabled]="!isFileValid">
+        Submit File
+    </button>
+</div>

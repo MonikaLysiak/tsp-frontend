@@ -22,5 +22,7 @@
       <h4>Total Distance:</h4>
       <p>{{ response.distance }} km</p>
     </div>
-  </div>
+</div>
   
+<app-csv-upload-form (fileValidated)="handleValidatedFile($event)"></app-csv-upload-form>
+<app-genetic-params-form></app-genetic-params-form>

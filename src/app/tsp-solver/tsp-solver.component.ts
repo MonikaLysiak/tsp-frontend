@@ -48,4 +48,9 @@ export class TspSolverComponent {
       }
     });
   }
+
+  handleValidatedFile(file: File) {
+    console.log('Valid file received:', file);
+  }
+  
 }
