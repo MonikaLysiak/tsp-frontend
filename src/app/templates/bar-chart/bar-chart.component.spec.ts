@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TspSolverComponent } from './tsp-solver.component';
+import { BarChartComponent } from './bar-chart.component';
 
-describe('TspSolverComponent', () => {
-  let component: TspSolverComponent;
-  let fixture: ComponentFixture<TspSolverComponent>;
+describe('BarChartComponent', () => {
+  let component: BarChartComponent;
+  let fixture: ComponentFixture<BarChartComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [TspSolverComponent]
+    imports: [BarChartComponent]
 });
-    fixture = TestBed.createComponent(TspSolverComponent);
+    fixture = TestBed.createComponent(BarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

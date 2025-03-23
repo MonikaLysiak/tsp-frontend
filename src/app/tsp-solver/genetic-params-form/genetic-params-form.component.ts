@@ -1,14 +1,22 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CrossoverMethod } from 'src/app/enums/crossover-method';
 import { TournamentMethod } from 'src/app/enums/tournament-method';
 import { GeneticParameters } from 'src/app/models/genetic-parameters';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { NgIf, NgFor } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-genetic-params-form',
-  templateUrl: './genetic-params-form.component.html',
-  styleUrls: ['./genetic-params-form.component.css'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-genetic-params-form',
+    templateUrl: './genetic-params-form.component.html',
+    styleUrls: ['./genetic-params-form.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgIf, MatSelectModule, NgFor, MatOptionModule, MatButtonModule]
 })
 export class GeneticParamsFormComponent {
   geneticForm: FormGroup;

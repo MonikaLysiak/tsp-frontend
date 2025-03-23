@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TspService, TspRequest, TspResponse } from '../services/tsp.service';
+import { GeneticParamsFormComponent } from './genetic-params-form/genetic-params-form.component';
+import { CsvUploadFormComponent } from './csv-upload-form/csv-upload-form.component';
+import { NgIf } from '@angular/common';
+import { TspSignalrService } from '../services/tsp-signalr.service';
+import { BarChartComponent } from "../templates/bar-chart/bar-chart.component";
 
 @Component({
-  selector: 'app-tsp-solver',
-  templateUrl: './tsp-solver.component.html',
-  styleUrls: ['./tsp-solver.component.css']
+    selector: 'app-tsp-solver',
+    templateUrl: './tsp-solver.component.html',
+    styleUrls: ['./tsp-solver.component.css'],
+    standalone: true,
+    imports: [NgIf, CsvUploadFormComponent, GeneticParamsFormComponent, BarChartComponent]
 })
-export class TspSolverComponent {
+export class TspSolverComponent implements OnInit {
+  chart1Data: number | null = null;
+  chart2Data: number | null = null;
+
   request: TspRequest = {
     filePath: 'C:\\Users\\k1212\\Documents\\GeneticTSP\\tsp-solver\\data\\Dane_TSP_48.csv',
     populationSize: 80000,
@@ -23,7 +33,17 @@ export class TspSolverComponent {
   loading = false;
   errorMessage = '';
 
-  constructor(private tspService: TspService) {}
+  constructor(private tspService: TspService, private signalRService: TspSignalrService) {}
+
+  ngOnInit() {
+    this.signalRService.dataStream.subscribe((newScore: number) => {
+      if (Math.random() > 0.5) {
+        this.chart1Data = newScore;
+      } else {
+        this.chart2Data = newScore;
+      }
+    });
+  }
 
   solveTsp() {
     this.loading = true;

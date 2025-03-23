@@ -8,8 +8,8 @@ describe('CoordinatesSetFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CoordinatesSetFormComponent]
-    });
+    imports: [CoordinatesSetFormComponent]
+});
     fixture = TestBed.createComponent(CoordinatesSetFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

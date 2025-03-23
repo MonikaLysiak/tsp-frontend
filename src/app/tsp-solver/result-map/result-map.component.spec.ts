@@ -8,8 +8,8 @@ describe('ResultMapComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResultMapComponent]
-    });
+    imports: [ResultMapComponent]
+});
     fixture = TestBed.createComponent(ResultMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

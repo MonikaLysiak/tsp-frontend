@@ -8,8 +8,8 @@ describe('ResultChartsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResultChartsComponent]
-    });
+    imports: [ResultChartsComponent]
+});
     fixture = TestBed.createComponent(ResultChartsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

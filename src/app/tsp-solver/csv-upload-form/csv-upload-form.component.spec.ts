@@ -8,8 +8,8 @@ describe('CsvUploadFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CsvUploadFormComponent]
-    });
+    imports: [CsvUploadFormComponent]
+});
     fixture = TestBed.createComponent(CsvUploadFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

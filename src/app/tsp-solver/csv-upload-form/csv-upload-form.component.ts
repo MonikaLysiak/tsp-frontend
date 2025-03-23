@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-csv-upload-form',
-  templateUrl: './csv-upload-form.component.html',
-  styleUrls: ['./csv-upload-form.component.css']
+    selector: 'app-csv-upload-form',
+    templateUrl: './csv-upload-form.component.html',
+    styleUrls: ['./csv-upload-form.component.css'],
+    standalone: true,
+    imports: [NgIf]
 })
 export class CsvUploadFormComponent {
   @Output() fileValidated = new EventEmitter<File>();

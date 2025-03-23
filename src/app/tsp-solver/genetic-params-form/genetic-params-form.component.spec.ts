@@ -8,8 +8,8 @@ describe('GeneticParamsFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GeneticParamsFormComponent]
-    });
+    imports: [GeneticParamsFormComponent]
+});
     fixture = TestBed.createComponent(GeneticParamsFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
