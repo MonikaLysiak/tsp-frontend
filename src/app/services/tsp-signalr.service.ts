@@ -1,33 +1,23 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@microsoft/signalr';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TspSignalrService {
-
-  private hubConnection!: signalR.HubConnection;
-  public dataStream = new BehaviorSubject<number>(0);
+  public dataStream = new BehaviorSubject<number | null>(null);
+  private counter = 1;
 
   constructor() {
-    this.startConnection();
-    this.addDataListener();
+    this.startMockDataStream();
   }
 
-  private startConnection() {
-    this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://your-server-url/signalr-hub')
-      .build();
-
-    this.hubConnection
-      .start()
-      .catch(err => console.error('Error while starting connection: ' + err));
-  }
-
-  private addDataListener() {
-    this.hubConnection.on('ReceiveScore', (score: number) => {
-      this.dataStream.next(score);
+  private startMockDataStream() {
+    interval(500).subscribe(() => {
+      if (this.counter <= 10000) {
+        this.dataStream.next(this.counter);
+        this.counter++;
+      }
     });
   }
 }
