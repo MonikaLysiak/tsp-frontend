@@ -11,6 +11,17 @@
       </button>
     </div>
 
+    <div>
+      <h2>Traveling Salesman Problem - Real-Time Updates</h2>
+    
+      <p><strong>Best Distance:</strong> {{ bestDistance }}</p>
+    
+      <h3>Best Route:</h3>
+      <ul>
+        <li *ngFor="let city of bestRoute">{{ city }}</li>
+      </ul>
+    </div>
+
   
     <div *ngIf="errorMessage" class="alert alert-danger mt-2">
       {{ errorMessage }}
@@ -27,5 +38,5 @@
 <app-csv-upload-form (fileValidated)="handleValidatedFile($event)"></app-csv-upload-form>
 <app-genetic-params-form></app-genetic-params-form>
 
-<app-bar-chart [chartLabel]="'Chart 1'" [newData]="chart1Data"></app-bar-chart>
-<app-bar-chart [chartLabel]="'Chart 2'" [newData]="chart2Data"></app-bar-chart>
+<app-bar-chart [chartLabel]="'Chart 1'" [newData]="bestDistance"></app-bar-chart>
+<app-bar-chart [chartLabel]="'Chart 2'" [newDataSet]="bestRouteCumulativeDistances"></app-bar-chart>
