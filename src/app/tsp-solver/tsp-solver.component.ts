@@ -15,8 +15,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
     imports: [NgIf, CsvUploadFormComponent, GeneticParamsFormComponent, BarChartComponent, CommonModule]
 })
 export class TspSolverComponent implements OnInit {
-  chart1Data: number | null = null;
-  chart2Data: number | null = null;
+  bestRoute: number[] = [];
+  bestRouteCumulativeDistances: number[] = [];
+  bestDistance: number = 0;
 
   request: TspRequest = {
     filePath: 'C:\\Users\\k1212\\Documents\\GeneticTSP\\tsp-solver\\data\\Dane_TSP_48.csv',
@@ -37,15 +38,23 @@ export class TspSolverComponent implements OnInit {
   constructor(private tspService: TspService, public signalRService: TspSignalrService) {}
 
   ngOnInit() {
-    this.signalRService.dataStream.subscribe((newScore: number | null) => {
-      if (newScore !== null) {
-        if (Math.random() > 0.5) {
-          this.chart1Data = newScore;
-        } else {
-          this.chart2Data = newScore;
-        }
-      }
+    this.signalRService.onTspUpdate((route, distance) => {
+      this.bestRoute = route;
+      this.bestRouteCumulativeDistances = this.getCumulativeDistances(route);
+      this.bestDistance = distance;
     });
+  }
+
+  getCumulativeDistances(route: number[]): number[] {
+    const cumulativeDistances: number[] = [];
+    let totalDistance = 0;
+
+    for (let i = 0; i < route.length; i++) {
+      totalDistance += route[i];
+      cumulativeDistances.push(totalDistance);
+    }
+
+    return cumulativeDistances;
   }
 
   solveTsp() {
