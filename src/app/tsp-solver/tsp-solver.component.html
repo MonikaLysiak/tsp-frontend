@@ -36,7 +36,7 @@
 </div>
   
 <app-csv-upload-form (fileValidated)="handleValidatedFile($event)"></app-csv-upload-form>
-<app-genetic-params-form></app-genetic-params-form>
+<app-genetic-params-form (saveClicked)="receiveData($event)"></app-genetic-params-form>
 
 <app-bar-chart [chartLabel]="'Chart 1'" [newData]="bestDistance"></app-bar-chart>
 <app-bar-chart [chartLabel]="'Chart 2'" [newDataSet]="bestRouteCumulativeDistances"></app-bar-chart>

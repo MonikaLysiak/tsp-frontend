@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CrossoverMethod } from 'src/app/enums/crossover-method';
 import { TournamentMethod } from 'src/app/enums/tournament-method';
@@ -19,13 +19,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgIf, MatSelectModule, NgFor, MatOptionModule, MatButtonModule]
 })
 export class GeneticParamsFormComponent {
+  @Output() saveClicked = new EventEmitter<any>();
   geneticForm: FormGroup;
 
-  // Enums for dropdowns
   tournamentMethods = Object.values(TournamentMethod);
   crossoverMethods = Object.values(CrossoverMethod);
 
-  // Default values
   defaultParams: GeneticParameters = {
     populationSize: 80000,
     tournamentSize: 70,
@@ -48,17 +47,15 @@ export class GeneticParamsFormComponent {
     });
   }
 
-  // Reset form to default values
   resetToDefaults() {
     this.geneticForm.setValue(this.defaultParams);
   }
 
-  // Submit form
   onSubmit() {
     if (this.geneticForm.valid) {
       const params: GeneticParameters = this.geneticForm.value;
       console.log('Submitted Parameters:', params);
-      // Send the params to backend or parent component
+      this.saveClicked.emit(params);
     } else {
       console.log('Form is invalid');
     }

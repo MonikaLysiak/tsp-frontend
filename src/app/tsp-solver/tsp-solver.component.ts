@@ -5,37 +5,30 @@ import { CsvUploadFormComponent } from './csv-upload-form/csv-upload-form.compon
 import { CommonModule, NgIf } from '@angular/common';
 import { TspSignalrService } from '../services/tsp-signalr.service';
 import { BarChartComponent } from "../templates/bar-chart/bar-chart.component";
-import { BehaviorSubject, Observable } from 'rxjs';
+import { GeneticParameters } from '../models/genetic-parameters';
+import { TournamentMethod } from '../enums/tournament-method';
+import { CrossoverMethod } from '../enums/crossover-method';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-    selector: 'app-tsp-solver',
-    templateUrl: './tsp-solver.component.html',
-    styleUrls: ['./tsp-solver.component.css'],
-    standalone: true,
-    imports: [NgIf, CsvUploadFormComponent, GeneticParamsFormComponent, BarChartComponent, CommonModule]
+  selector: 'app-tsp-solver',
+  templateUrl: './tsp-solver.component.html',
+  styleUrls: ['./tsp-solver.component.css'],
+  standalone: true,
+  imports: [NgIf, CsvUploadFormComponent, GeneticParamsFormComponent, BarChartComponent, CommonModule]
 })
 export class TspSolverComponent implements OnInit {
   bestRoute: number[] = [];
   bestRouteCumulativeDistances: number[] = [];
   bestDistance: number = 0;
 
-  request: TspRequest = {
-    filePath: 'C:\\Users\\k1212\\Documents\\GeneticTSP\\tsp-solver\\data\\Dane_TSP_48.csv',
-    populationSize: 80000,
-    mutationRate: 0.05,
-    generations: 100,
-    crossoverProbability: 0.9,
-    mutationChance: 0.05,
-    tournamentSize: 70,
-    crossoverMethod: 'TWO_POINT',
-    tournamentMethod: 'BEST_RANDOM'
-  };
+  request = new TspRequest();
 
   response: TspResponse | null = null;
   loading = false;
   errorMessage = '';
 
-  constructor(private tspService: TspService, public signalRService: TspSignalrService) {}
+  constructor(private tspService: TspService, public signalRService: TspSignalrService, private http: HttpClient) { }
 
   ngOnInit() {
     this.signalRService.onTspUpdate((route, distance) => {
@@ -43,6 +36,30 @@ export class TspSolverComponent implements OnInit {
       this.bestRouteCumulativeDistances = this.getCumulativeDistances(route);
       this.bestDistance = distance;
     });
+
+    this.setSampleData();
+  }
+
+  setSampleData() {
+    const geneticParameters: GeneticParameters = {
+      populationSize: 80000,
+      tournamentSize: 70,
+      maxGenerations: 100,
+      chanceOfNodeMutating: 0.05,
+      crossOverProbability: 0.9,
+      tournamentMethod: TournamentMethod.BEST_RANDOM,
+      crossoverMethod: CrossoverMethod.TWO_POINT
+    }
+
+    this.request.setGeneticParameters(geneticParameters);
+
+    this.http.get('assets/sample-data/Dane_TSP_48.csv', { responseType: 'blob' })
+      .subscribe((blob: Blob) => {
+        const file = new File([blob], 'Dane_TSP_48.csv', { type: blob.type });
+        if (file) {
+          this.request.setFile(file);
+        }
+      });
   }
 
   getCumulativeDistances(route: number[]): number[] {
@@ -55,6 +72,10 @@ export class TspSolverComponent implements OnInit {
     }
 
     return cumulativeDistances;
+  }
+
+  receiveData(data: GeneticParameters) {
+    this.request.setGeneticParameters(data);
   }
 
   solveTsp() {
@@ -82,6 +103,6 @@ export class TspSolverComponent implements OnInit {
   }
 
   handleValidatedFile(file: File) {
-    console.log('Valid file received:', file);
+    this.request.setFile(file);
   }
 }

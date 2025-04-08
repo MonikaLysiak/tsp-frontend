@@ -1,11 +1,15 @@
-export interface TspRequest {
-  filePath: string;
-  populationSize: number;
-  mutationRate: number;
-  generations: number;
-  crossoverProbability: number;
-  mutationChance: number;
-  tournamentSize: number;
-  crossoverMethod: string;
-  tournamentMethod: string;
+import { GeneticParameters } from "./genetic-parameters";
+
+export class TspRequest extends FormData {
+  constructor() {
+    super();
+  }
+
+  setFile(file: File) {
+    this.set('file', file, file.name);
+  }
+
+  setGeneticParameters(geneticParameters: GeneticParameters) {
+    this.set('geneticParameters', JSON.stringify(geneticParameters));
+  }
 }
