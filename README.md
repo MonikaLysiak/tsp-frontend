@@ -1,48 +1,94 @@
 # TspFrontend
-This repository is part of the [GeneticTSP](https://github.com/MonikaLysiak?tab=projects#:~:text=Sort-,GeneticTSP,-%232%20updated%203) project. The project uses genetic programing to find solution to Travelling salesman problem. Due to organizational reasons it was divaded into 3 parts: frontend (this repo), backend and genetic service. This part is responsible for allowing user to enter data then to send it to server, receive real-time results and present them to the user.
+
+This repository is part of the [GeneticTSP](https://github.com/MonikaLysiak?tab=projects#:~:text=Sort-,GeneticTSP,-%232%20updated%203) project. The project uses **genetic programming** to find solutions to the **Travelling Salesman Problem (TSP)**. Due to organizational reasons, the solution has been divided into three parts: **frontend** (this repository), **backend**, and **genetic service**. This part is responsible for:
+
+- Accepting user input  
+- Sending data to the server  
+- Receiving real-time results  
+- Displaying results to the user  
+
+---
 
 ## Input
-Program accepts data in form od csv file with set of cities and distances beetween each of them in a form of the matrix.
-There is also possibility to change parameters for genetic program which allows user to better adapt parameters to the provided data and to manipulate the quality of the results as well as time of getting the solution.
-Below is implemented view of data input.
+
+The program accepts data in the form of a CSV file containing a set of cities and the distances between them, structured as a distance matrix.
+
+Users can also configure parameters of the genetic algorithm. This allows fine-tuning of the results to suit specific data characteristics, optimizing either the quality of the solution or the computation time.
+
+Example input interface:  
 ![image](https://github.com/user-attachments/assets/69733cdc-96d2-4309-9489-b075c5177582)
 
+---
+
 ## Results
-The results are provided to the user in real-time in a form of a diagram displaing the sequence of cities that forms actual shortest route. There is also displayed actual best distance and an chart with best distances received so far. The chart is updated every new best distance and allowes user to see the progress in finding the best route.
-Below is implemented view of the results given by the genetic algoritm.
-![image](https://github.com/user-attachments/assets/a9ba24d8-6ff7-4929-a2ef-105748207a31)
-Below is presented final view that user sees after genetic program finishes its work.
-![image](https://github.com/user-attachments/assets/53a1b58f-9af6-4eb0-99dd-1f6f4dd7a0d2)
 
-## Work flow
-Program allows user to: 
-- Enter csv file with cities and distances beetween them.
-- Change parameters used by genetic algoritm.
-- Change parameters back to defult.
-- Click solve and start genetic algoritm on the provided file with the entered parameters.
-- Click stop at any time of work of the program to stop algoritm and receive actual best result.
-- Watch as the results change and the best route is getting shorter on the provided results tab.
+Results are provided in real time. The interface displays:
 
-## Technology
-This part of the genetic program was created using technologies:
-- Angular
-- Material Angular
-- TS
-- HTML
-- SignalR
-- ng2Charts
-- chartJs
-- bootstrap
-- streamChart
+- A diagram showing the current best route (sequence of cities)  
+- The shortest distance found so far  
+- A live-updating chart visualizing progress  
 
-- CsvHelper
-- Microsoft.AspNetCore.Cors
+The chart is updated whenever a new shortest path is discovered, allowing users to observe the algorithm's optimization process.
+
+Examples of result views:
+
+- In-progress result view:  
+  ![image](https://github.com/user-attachments/assets/a9ba24d8-6ff7-4929-a2ef-105748207a31)
+
+- Final result view after computation completes:  
+  ![image](https://github.com/user-attachments/assets/53a1b58f-9af6-4eb0-99dd-1f6f4dd7a0d2)
+
+---
+
+## Workflow
+
+Users can:
+
+- Upload a CSV file containing cities and distances  
+- Adjust genetic algorithm parameters  
+- Reset parameters to defaults  
+- Click **Solve** to start computation  
+- Click **Stop** to end computation early and get the best current result  
+- Watch live updates as the algorithm refines the best route  
+
+---
+
+## Technologies Used
+
+This frontend was developed using the following technologies:
+
+### Frontend Stack
+
+- [Angular](https://angular.io/) v16.2.0  
+- [Angular CLI](https://github.com/angular/angular-cli) v16.2.14  
+- [Angular Material](https://material.angular.io/) v16.2.14  
+- [TypeScript](https://www.typescriptlang.org/) v5.1.3  
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)  
+- [RxJS](https://rxjs.dev/) v7.8.0  
+- [Zone.js](https://angular.io/guide/zone) v0.13.0  
+
+### Real-time Communication
+
+- [SignalR (Microsoft)](https://learn.microsoft.com/en-us/aspnet/core/signalr/introduction?view=aspnetcore-8.0) v8.0.7  
+
+### Charts & Visualization
+
+- [Chart.js](https://www.chartjs.org/) v4.4.8  
+- [ng2-charts](https://valor-software.com/ng2-charts/) v5.0.4  
+
+### Styling
+
+- [Bootstrap](https://getbootstrap.com/) v5.2.3
+- [NG Bootstrap](https://ng-bootstrap.github.io/#/home) v15.1.2
+- [Popper.js](https://popper.js.org/) v2.11.6
+
+---
 
 ## Installation & Setup
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) v16.2.14.
 
-### Development server
+### Development Server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
