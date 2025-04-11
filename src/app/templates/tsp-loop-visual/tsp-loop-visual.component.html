@@ -1,0 +1,59 @@
+<!-- tsp-loop-visual.component.html -->
+<div class="circle-container">
+    <svg [attr.width]="size" [attr.height]="size" class="loop-svg">
+      <ng-container *ngFor="let city of route; let i = index">
+        <!-- City Point -->
+        <circle
+          [attr.cx]="positions[i].x"
+          [attr.cy]="positions[i].y"
+          r="12"
+          fill="#90caf9"
+          stroke="#0d47a1"
+          stroke-width="1"
+        ></circle>
+  
+        <!-- City Label -->
+        <text
+          [attr.x]="positions[i].x"
+          [attr.y]="positions[i].y + 4"
+          text-anchor="middle"
+          font-size="10"
+          font-family="monospace"
+        >
+          {{ city }}
+        </text>
+  
+        <!-- Connection line -->
+        <line
+          *ngIf="positions[i + 1]"
+          [attr.x1]="positions[i].x"
+          [attr.y1]="positions[i].y"
+          [attr.x2]="positions[i + 1].x"
+          [attr.y2]="positions[i + 1].y"
+          stroke="#1976d2"
+          stroke-width="1"
+          marker-end="url(#arrowhead)"
+        ></line>
+      </ng-container>
+  
+      <!-- Final line to loop back -->
+      <line
+        *ngIf="route.length > 1"
+        [attr.x1]="positions[route.length - 1].x"
+        [attr.y1]="positions[route.length - 1].y"
+        [attr.x2]="positions[0].x"
+        [attr.y2]="positions[0].y"
+        stroke="#1976d2"
+        stroke-width="1"
+        marker-end="url(#arrowhead)"
+      ></line>
+  
+      <!-- Arrowhead definition -->
+      <defs>
+        <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#1976d2" />
+        </marker>
+      </defs>
+    </svg>
+  </div>
+  

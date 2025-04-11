@@ -1,5 +1,7 @@
-<div style="width: 80%; margin: auto;">
-        <canvas baseChart 
+<div style="width: 100%; margin: 0; height: 100%; display: flex; justify-content: center; align-items: center;">
+        
+        <canvas *ngIf="barChartData"
+        baseChart 
         [data]="barChartData" 
         [options]="barChartOptions" 
         chartType="bar">

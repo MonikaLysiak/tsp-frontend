@@ -1,0 +1,13 @@
+/* tsp-loop-visual.component.css */
+.circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+  }
+  
+  .loop-svg {
+    max-width: 100%;
+    height: auto;
+  }
+  

@@ -14,7 +14,7 @@
         {{ validationMessage }}
     </p>
 
-    <button class="submit-btn" (click)="fileValidated.emit(selectedFile)" [disabled]="!isFileValid">
+    <button mat-raised-button color="primary" (click)="fileValidated.emit(selectedFile)" [disabled]="!isFileValid">
         Submit File
     </button>
 </div>

@@ -1,0 +1,46 @@
+.dense-btn {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    min-height: 32px;
+    line-height: 1.2;
+  }
+  
+  .small-title {
+    font-size: 1rem;
+  }
+  
+  .small-chart {
+    height: 350px;
+    overflow: hidden;
+  }
+  
+  mat-card {
+    font-size: 0.85rem;
+    height: 100%;
+  }
+  
+  .route-arrow-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    font-family: monospace;
+    font-size: 0.9rem;
+  }
+  
+  .city-cell {
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 4px;
+    padding: 4px 8px;
+    min-width: 50px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  .arrow {
+    padding: 0 4px;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  

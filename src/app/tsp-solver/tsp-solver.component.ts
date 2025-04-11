@@ -9,13 +9,27 @@ import { GeneticParameters } from '../models/genetic-parameters';
 import { TournamentMethod } from '../enums/tournament-method';
 import { CrossoverMethod } from '../enums/crossover-method';
 import { HttpClient } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-tsp-solver',
   templateUrl: './tsp-solver.component.html',
   styleUrls: ['./tsp-solver.component.css'],
   standalone: true,
-  imports: [NgIf, CsvUploadFormComponent, GeneticParamsFormComponent, BarChartComponent, CommonModule]
+  imports: [
+    NgIf,
+    CsvUploadFormComponent,
+    GeneticParamsFormComponent,
+    BarChartComponent,
+    CommonModule,
+    MatTabsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatToolbarModule
+  ]
 })
 export class TspSolverComponent implements OnInit {
   bestRoute: number[] = [];

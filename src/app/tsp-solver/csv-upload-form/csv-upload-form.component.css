@@ -50,23 +50,3 @@ p {
     color: red;
     font-weight: bold;
 }
-
-.submit-btn {
-    background: #28a745;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-    font-size: 14px;
-}
-
-.submit-btn:disabled {
-    background: gray;
-    cursor: not-allowed;
-}
-
-.submit-btn:hover:not(:disabled) {
-    background: #218838;
-}

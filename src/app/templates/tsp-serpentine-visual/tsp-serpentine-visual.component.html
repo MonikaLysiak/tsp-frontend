@@ -1,0 +1,18 @@
+<div class="serpentine-container">
+    <div class="serpentine-grid">
+      <ng-container *ngFor="let row of grid; let rowIndex = index">
+        <div class="serpentine-row" [class.reverse]="row.reverse">
+          <ng-container *ngFor="let city of row.cities; let i = index">
+            <div class="city-cell">{{ city }}</div>
+            <!-- Only show arrow if it's not the last city in route -->
+            <ng-container *ngIf="!isLastInRoute(rowIndex, i)">
+              <div class="arrow-cell">
+                <span class="arrow" [innerHTML]="row.reverse ? '&#8592;' : '&#8594;'"></span>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  

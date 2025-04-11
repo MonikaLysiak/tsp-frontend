@@ -1,42 +1,85 @@
-<div class="container">
-    <h2>Travelling Salesman Problem Solver</h2>
-  
-    <div class="btn-group" role="group">
-      <button (click)="solveTsp()" class="btn btn-primary" [disabled]="loading">
-        {{ loading ? 'Solving...' : 'Solve TSP' }}
-      </button>
-    
-      <button (click)="stopTsp()" class="btn btn-primary" [disabled]="!loading">
-        {{ 'Stop Tsp' }}
-      </button>
-    </div>
+<div class="container mat-typography my-3">
 
-    <div>
-      <h2>Traveling Salesman Problem - Real-Time Updates</h2>
-    
-      <p><strong>Best Distance:</strong> {{ bestDistance }}</p>
-    
-      <h3>Best Route:</h3>
-      <ul>
-        <li *ngFor="let city of bestRoute">{{ city }}</li>
-      </ul>
-    </div>
+  <mat-toolbar class="d-flex justify-content-center" style="background-color: white;">
+    <span>Travelling Salesman Problem Solver</span>
+  </mat-toolbar>
 
-  
-    <div *ngIf="errorMessage" class="alert alert-danger mt-2">
-      {{ errorMessage }}
-    </div>
-  
-    <div *ngIf="response" class="mt-3">
-      <h4>Best Route:</h4>
-      <p>{{ response.bestRoute.join(' → ') }}</p>
-      <h4>Total Distance:</h4>
-      <p>{{ response.distance }} km</p>
-    </div>
+  <div class="d-flex justify-content-center mb-3 gap-2">
+    <button mat-raised-button color="primary" class="dense-btn" (click)="solveTsp()" [disabled]="loading">
+      {{ loading ? 'Solving...' : 'Solve TSP' }}
+    </button>
+    <button mat-raised-button color="warn" class="dense-btn" (click)="stopTsp()" [disabled]="!loading">
+      Stop TSP
+    </button>
+  </div>
+
+  <mat-tab-group>
+    <mat-tab label="Input">
+      <div class="row gx-3 gy-3">
+        <div class="col-md-6">
+          <mat-card class="p-2">
+            <mat-card-title class="small-title">Upload CSV</mat-card-title>
+            <mat-card-content>
+              <app-csv-upload-form (fileValidated)="handleValidatedFile($event)"></app-csv-upload-form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="col-md-6">
+          <mat-card class="p-2">
+            <mat-card-title class="small-title">Set Parameters</mat-card-title>
+            <mat-card-content>
+              <app-genetic-params-form (saveClicked)="receiveData($event)"></app-genetic-params-form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Results & Charts">
+      <div class="row gx-3 gy-3">
+        <div class="col-md-6">
+          <mat-card class="p-2">
+            <mat-card-title class="small-title">Real-Time Results</mat-card-title>
+            <mat-card-content>
+              <p class="mb-1"><strong>Best Distance:</strong> {{ bestDistance }}</p>
+
+              <div *ngIf="bestRoute?.length">
+                <p class="mb-1"><strong>Best Route:</strong></p>
+                <div class="route-arrow-grid">
+                  <ng-container *ngFor="let city of bestRoute; let i = index">
+                    <div class="city-cell">{{ city }}</div>
+                    <div class="arrow" *ngIf="i < bestRoute.length - 1">→</div>
+                  </ng-container>
+                  <div class="arrow">→</div>
+                  <div class="city-cell">{{ bestRoute[0] }}</div>
+                </div>
+              </div>
+
+              <mat-card *ngIf="errorMessage" class="mt-2 p-1 bg-light text-danger">
+                {{ errorMessage }}
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="col-md-6">
+          <mat-card class="p-2">
+            <!-- <mat-card-title class="small-title">Charts</mat-card-title> -->
+            <mat-card-content>
+              <div class="small-chart mb-2">
+                <app-bar-chart [chartLabel]="'Best Distance Over Time'" [newData]="bestDistance"></app-bar-chart>
+              </div>
+              <!-- <div class="small-chart">
+                <app-bar-chart
+                  [chartLabel]="'Cumulative Distances'"
+                  [newDataSet]="bestRouteCumulativeDistances"
+                ></app-bar-chart>
+              </div> -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
-  
-<app-csv-upload-form (fileValidated)="handleValidatedFile($event)"></app-csv-upload-form>
-<app-genetic-params-form (saveClicked)="receiveData($event)"></app-genetic-params-form>
-
-<app-bar-chart [chartLabel]="'Chart 1'" [newData]="bestDistance"></app-bar-chart>
-<app-bar-chart [chartLabel]="'Chart 2'" [newDataSet]="bestRouteCumulativeDistances"></app-bar-chart>

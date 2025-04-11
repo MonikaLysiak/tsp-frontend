@@ -24,10 +24,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     }
   };
 
-  public barChartData: ChartData<'bar'> = {
-    labels: [],
-    datasets: [{ data: [], label: this.chartLabel }]
-  };
+  public barChartData: ChartData<'bar'> | null = null;
 
   private rawData: number[] = [];
   private displayedData: number[] = [];
@@ -36,7 +33,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['newData'] && this.newData !== null) {
+    if (changes['newData'] && this.newData !== null && this.newData !== 0) {
       this.addNewData(this.newData);
     }
     if (changes['newDataSet'] && this.newDataSet.length > 0) {
@@ -66,10 +63,18 @@ export class BarChartComponent implements OnInit, OnChanges {
       this.displayedData.push(this.rawData[i]);
       this.displayedLabels.push(`#${i + 1}`);
     }
+    
+    if (this.barChartData === null) {
+      this.barChartData = {
+        labels: [...this.displayedLabels],
+        datasets: [{ data: [...this.displayedData], label: this.chartLabel }]
+      }
+    }else{
 
-    this.barChartData.datasets[0].data = [...this.displayedData];
-
-    this.barChartData.labels = [...this.displayedLabels];
+      this.barChartData.datasets[0].data = [...this.displayedData];
+  
+      this.barChartData.labels = [...this.displayedLabels];
+    }
 
     this.chart?.update();
 
